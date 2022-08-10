@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+    app:
+        build:
+            context: ./
+            dockerfile: local.Dockerfile
+        command: bash -c 'php artisan migrate && php artisan serve --host 0.0.0.0 --port 80'
+        links:
+            - localDB
+            - memcached
+        depends_on:
+            - localDB
+        restart: on-failure
+        volumes:
+            - C:\WEB\GameBreak:/var/www
+        ports:
+            - "6099:80"
+
+    localDB:
+        image: mariadb
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: 74gDPrefxAYi2FIkozS8nZgcMDUEmbU6
+            MYSQL_DATABASE: gamebreak
+            MYSQL_USER: gamebreak
+            MYSQL_PASSWORD: VUCPET45UzVTVfNY6yHeYqbi34GjJoo3
+            MYSQL_INITDB_SKIP_TZINFO: 1
+
+    memcached:
+        image: memcached
+        ports:
+            - "11211:11211"
