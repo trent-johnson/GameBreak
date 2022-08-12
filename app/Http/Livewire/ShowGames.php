@@ -20,8 +20,8 @@ class ShowGames extends Component
     public $search_string = null;
     public $max_players = 8;
     public $min_players = 1;
-    public $max_time = null;
-    public $min_time = null;
+    public $max_time = 360;
+    public $min_time = 15;
 
     public function render()
     {
@@ -37,6 +37,8 @@ class ShowGames extends Component
                 return strpos(strtolower($key['name']), strtolower($this->search_string)) !== false;
             });
         }
+
+        //Player Count Filters
         if($this->max_players) {
             $games = array_filter($games, function ($key) {
                     return ($this->max_players <> 8) ? $key['stats']['@attributes']['maxplayers'] <= $this->max_players : true;
@@ -47,6 +49,20 @@ class ShowGames extends Component
                 return $key['stats']['@attributes']['minplayers'] >= $this->min_players;
             });
         }
+
+        //Time Filter
+        if($this->max_time) {
+            $games = array_filter($games, function ($key) {
+                return ($this->max_time <> 360 && array_key_exists('playingtime',$key['stats']['@attributes'])) ? $key['stats']['@attributes']['playingtime'] <= $this->max_time : true;
+            });
+        }
+
+        if($this->min_time) {
+            $games = array_filter($games, function ($key) {
+                return (array_key_exists('playingtime',$key['stats']['@attributes'])) ? $key['stats']['@attributes']['playingtime'] >= $this->min_time : true;
+            });
+        }
+
 
         //Apply Sorting
         usort($games, function($a, $b) {
