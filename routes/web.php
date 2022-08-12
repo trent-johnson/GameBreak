@@ -21,6 +21,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/collection/{username}',[\App\Http\Controllers\CollectionController::class, 'show']);
+Route::get('/collection/{username}',[\App\Http\Controllers\CollectionController::class, 'show'])->middleware(['auth'])->name('collection');
+Route::get('/user/{user}', [\App\Http\Controllers\UserController::class,'show'])->middleware(['auth'])->name('profile');
+Route::post('/user/{user}', [\App\Http\Controllers\UserController::class,'update'])->middleware(['auth'])->name('updateProfile');
 
 require __DIR__.'/auth.php';

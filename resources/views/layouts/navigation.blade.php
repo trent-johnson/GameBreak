@@ -15,6 +15,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('profile', ['user' => auth()->user()->id])" :active="request()->routeIs('profile')">
+                        {{ __('Profile') }}
+                    </x-nav-link>
+                    @if(auth()->user()->bgg_user)
+                        <x-nav-link :href="route('collection', ['username' => auth()->user()->bgg_user])" :active="request()->routeIs('collection')">
+                            {{ __('My Collection') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -66,6 +74,15 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('profile', ['user' => auth()->user()->id])" :active="request()->routeIs('profile')">
+                {{ __('Profile') }}
+            </x-responsive-nav-link>
+
+            @if(auth()->user()->bgg_user)
+                <x-responsive-nav-link :href="route('collection', ['username' => auth()->user()->bgg_user])" :active="request()->routeIs('collection')">
+                    {{ __('My Collection') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

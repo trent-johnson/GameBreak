@@ -11,15 +11,15 @@ class ShowGames extends Component
 {
     public $username = '';
     public $sort = 'name';
-    public $sort_asc = false;
+    public $sort_asc = true;
     public $sort_options = [
         ['name' => 'Name', 'id' => 'name'],
         ['name' => 'Plays', 'id' => 'numplays'],
         ['name' => 'Release', 'id' => 'yearpublished'],
     ];
     public $search_string = null;
-    public $max_players = 8;
-    public $min_players = 1;
+    public $max_players = 5;
+    public $min_players = 2;
     public $max_time = 360;
     public $min_time = 15;
 
@@ -41,12 +41,12 @@ class ShowGames extends Component
         //Player Count Filters
         if($this->max_players) {
             $games = array_filter($games, function ($key) {
-                    return ($this->max_players <> 8) ? $key['stats']['@attributes']['maxplayers'] <= $this->max_players : true;
+                    return ($this->max_players <> 8) ? $key['stats']['@attributes']['maxplayers'] >= $this->max_players : $key['stats']['@attributes']['maxplayers'] >= 8;
             });
         }
         if($this->min_players) {
             $games = array_filter($games, function ($key) {
-                return $key['stats']['@attributes']['minplayers'] >= $this->min_players;
+                return $key['stats']['@attributes']['minplayers'] <= $this->min_players;
             });
         }
 
@@ -93,7 +93,18 @@ class ShowGames extends Component
 
     private function fetchCollection() {
         return  Cache::remember($this->username . '_collection',60*60*24, function () {
-            $response = Http::get('https://boardgamegeek.com/xmlapi2/collection?username=' . $this->username . '&subtype=boardgame&own=1&stats=1');
+            $attempts = 0;
+            do {
+                $response = Http::get('https://boardgamegeek.com/xmlapi2/collection?username=' . $this->username . '&subtype=boardgame&own=1&stats=1');
+
+                if($attempts > 0) {
+                    Log::debug('BGG is processing the request. Will try again.');
+                    sleep(5);
+                }
+                $attempts++;
+            } while($response->status() == 202 || $attempts > 5);
+
+
             $xml = simplexml_load_string($response->getBody(), 'SimpleXMLElement', LIBXML_NOCDATA);
             $json = json_encode($xml);
             return json_decode($json, true);

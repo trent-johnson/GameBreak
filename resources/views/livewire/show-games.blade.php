@@ -117,16 +117,26 @@
             wire:model="search_string"
         />
     </div>
+
+    <!-- Refresh Loader -->
     <div wire:loading class="mx-auto text-center">
         <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
     </div>
+
+    <!-- Game Grid -->
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4" wire:loading.remove>
         @foreach($games as $game)
-            <div class="max-w-sm rounded overflow-hidden shadow-sm mx-auto">
-
+            <div class="max-w-sm rounded overflow-hidden shadow-sm mx-auto relative">
+                @if(intval($game['stats']['rating']['@attributes']['value']) >= 7)
+                    <span class="flex absolute h-10 w-10 top-0 right-0 mt-1 mr-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {{ (intval($game['stats']['rating']['@attributes']['value']) >= 9) ? 'fill-amber-400' : 'fill-amber-900'}}" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </span>
+                @endif
                 <img class="mx-auto rounded-full shadow-xl object-contain h-32 w-32" src="{{ $game['thumbnail'] }}" />
                 <p class="text-center text-ellipsis object-contain">{{$game['name']}}</p>
                 <div class="flex space-x-4 my-3 mx-auto">
@@ -141,6 +151,14 @@
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
                         </svg>
                         {{(array_key_exists('playingtime',$game['stats']['@attributes'])) ? $game['stats']['@attributes']['playingtime'] . 'm' : 'N/A' }}</div>
+
+                </div>
+                <div class="flex space-x-4 my-3 mx-auto">
+                    <div class="flex-auto bg-slate-300 rounded text-gray-500  px-2 py-1 text-sm">
+                        <a href="https://boardgamegeek.com/boardgame/{{ $game['@attributes']['objectid'] }}" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg></a>
+                    </div>
                 </div>
             </div>
         @endforeach
@@ -148,12 +166,12 @@
         <script>
             function range() {
                 return {
-                    minprice: 1,
-                    maxprice: 8,
+                    minprice: 2,
+                    maxprice: 5,
                     min: 1,
                     max: 8,
-                    minthumb: 0,
-                    maxthumb: 0,
+                    minthumb: 2,
+                    maxthumb: 5,
 
                     mintrigger() {
                         this.minprice = Math.min(this.minprice, this.maxprice - 1);

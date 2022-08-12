@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Log;
 class CollectionController extends Controller
 {
     public function show(Request $request, $username) {
-
         return view('collection.show', [
             'username' => $username
         ]);
