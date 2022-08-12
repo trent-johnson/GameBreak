@@ -12,17 +12,7 @@ class CollectionController extends Controller
 {
     public function show(Request $request, $username) {
 
-        Log::debug('Checking if ' . $username . '_collection is available in cache: ' . Cache::has($username . '_collection'));
-
-        $collection = Cache::remember($username . '_collection',60*60*24, function () use ($username) {
-            $response = Http::get('https://boardgamegeek.com/xmlapi2/collection?username=' . $username . '&subtype=boardgame&own=1');
-            $xml = simplexml_load_string($response->getBody(), 'SimpleXMLElement', LIBXML_NOCDATA);
-            $json = json_encode($xml);
-            return json_decode($json, true);
-        });
-        dump($collection);
         return view('collection.show', [
-            'collection' => $collection,
             'username' => $username
         ]);
     }
