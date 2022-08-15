@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\GameBreak;
 use App\Models\Option;
 use Illuminate\Http\Request;
@@ -44,5 +45,13 @@ class BreakController extends Controller
         $successes = collect(['New Game Break scheduled successfully.']);
 
         return redirect()->route('breaks');
+    }
+
+    public function show(Request $request, $id) {
+        $break = GameBreak::with('options')->findorfail($id);
+
+        return view('break.show', [
+            'break' => $break
+        ]);
     }
 }

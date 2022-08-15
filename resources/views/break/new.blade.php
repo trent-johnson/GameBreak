@@ -3,6 +3,11 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Schedule New Game Break') }}
         </h2>
+        <div class="text-right">
+            <x-button>
+                {{ __('Schedule') }}
+            </x-button>
+        </div>
     </x-slot>
 
     <!-- Validation Errors -->
@@ -13,7 +18,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <div class="my-3">
+                        <div class="mb-3">
                             <p class="text-lg">Event Details</p>
                         </div>
                         <div class="my-3">
@@ -29,9 +34,6 @@
                             <x-label for="notes" :value="__('Notes')" />
                             <x-input id="notes" class="block mt-1 w-full" type="text" name="notes" :value="old('notes')" />
                         </div>
-                        <x-button>
-                            {{ __('Schedule') }}
-                        </x-button>
                     </div>
                 </div>
 
