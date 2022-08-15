@@ -17,12 +17,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware(['auth'])->group(function() {
+
+    /////////////////////////
+    /// COLLECTION ROUTES ///
+    Route::get('/collection/{username}',[\App\Http\Controllers\CollectionController::class, 'show'])->name('collection');
+
+    ////////////////////
+    /// BREAK ROUTES ///
+    Route::get('/breaks', [\App\Http\Controllers\BreakController::class,'index'])->name('breaks');
+    Route::get('/break/new',[\App\Http\Controllers\BreakController::class,'create'])->name('newBreak');
+    Route::post('/break',[\App\Http\Controllers\BreakController::class,'save'])->name('saveBreak');
+
+    ///////////////////
+    /// USER ROUTES ///
+    Route::get('/user/{user}', [\App\Http\Controllers\UserController::class,'show'])->name('profile');
+    Route::post('/user/{user}', [\App\Http\Controllers\UserController::class,'update'])->name('updateProfile');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/collection/{username}',[\App\Http\Controllers\CollectionController::class, 'show'])->middleware(['auth'])->name('collection');
-Route::get('/user/{user}', [\App\Http\Controllers\UserController::class,'show'])->middleware(['auth'])->name('profile');
-Route::post('/user/{user}', [\App\Http\Controllers\UserController::class,'update'])->middleware(['auth'])->name('updateProfile');
 
 require __DIR__.'/auth.php';

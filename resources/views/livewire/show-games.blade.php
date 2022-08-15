@@ -129,6 +129,11 @@
     <!-- Game Grid -->
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4" wire:loading.remove>
         @foreach($games as $game)
+            @if($break)
+              <div>
+                <input type="checkbox" id="{{ $game['@attributes']['objectid']}}_option" name="game_options[]" value="{{ $game['@attributes']['objectid']}}" class="hidden peer">
+                <label for="{{ $game['@attributes']['objectid']}}_option" class="inline-flex justify-between items-center p-5 w-full rounded-lg border-2 border-gray-200 cursor-pointer peer-checked:border-blue-600 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50 peer-checked:bg-gray-50 ">
+            @endif
             <div class="max-w-sm rounded overflow-hidden shadow-sm mx-auto relative">
                 @if(intval($game['stats']['rating']['@attributes']['value']) >= 7)
                     <span class="flex absolute h-10 w-10 top-0 right-0 mt-1 mr-1">
@@ -161,6 +166,10 @@
                     </div>
                 </div>
             </div>
+            @if($break)
+                </label>
+              </div>
+            @endif
         @endforeach
     </div>
         <script>

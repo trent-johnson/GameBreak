@@ -13,7 +13,7 @@ services:
             - localDB
         restart: on-failure
         volumes:
-            - C:\Users\trent\PhpstormProjects\GameBreak:/var/www
+            - C:\WEB\GameBreak:/var/www
         ports:
             - "6099:80"
 

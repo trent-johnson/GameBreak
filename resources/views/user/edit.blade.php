@@ -17,7 +17,6 @@
                         <p class="my-3">{{ $user->name  }} Profile</p>
                         <div class="my-3">
                             <x-label for="bgg_user" :value="__('BGG Profile')" />
-
                             <x-input id="bgg_user" class="block mt-1 w-full" type="text" name="bgg_user" :value="old('bgg_user', $user->bgg_user)" required autofocus />
                         </div>
                         <x-button>

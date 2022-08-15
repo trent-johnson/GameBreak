@@ -22,6 +22,7 @@ class ShowGames extends Component
     public $min_players = 2;
     public $max_time = 360;
     public $min_time = 15;
+    public $break = false;
 
     public function render()
     {
@@ -73,7 +74,7 @@ class ShowGames extends Component
             }
         });
 
-        Log::debug(print_r($games,true));
+        //Log::debug(print_r($games,true));
 
         return view('livewire.show-games', [
             'games' => $games,
@@ -102,7 +103,7 @@ class ShowGames extends Component
                     sleep(5);
                 }
                 $attempts++;
-            } while($response->status() == 202 || $attempts > 5);
+            } while($response->status() == 202 && $attempts <= 5);
 
 
             $xml = simplexml_load_string($response->getBody(), 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -111,7 +112,4 @@ class ShowGames extends Component
         });
     }
 
-    public function test() {
-        Log::debug('Test method fired!');
-    }
 }

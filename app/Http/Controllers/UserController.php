@@ -23,6 +23,8 @@ class UserController extends Controller
 
         $user->save();
 
+        auth()->user()->refresh();
+
         $successes = collect(['Profile updated successfully.']);
 
         return view('user.edit', [
