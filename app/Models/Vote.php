@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Option extends Model
+class Vote extends Model
 {
     use HasFactory;
-    protected $table ='options';
-    protected $fillable = [
-        'bgg_thing_id',
-        'break_id'
-    ];
 
-    public function votes() {
-        return $this->hasMany(Vote::class);
-    }
+    protected $table='vote';
+    protected $fillable = [
+        'option_id',
+        'invitee_id'
+    ];
 }

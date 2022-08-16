@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Game;
 use App\Models\GameBreak;
 use App\Models\Option;
+use App\Models\Invitee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -45,6 +45,11 @@ class BreakController extends Controller
         if($request->input('invitee_list')) {
             $invites = explode(',',$request->input('invitee_list'));
             foreach($invites as $invite) {
+                $invite = str_replace(' ','',$invite);
+                $invitee = Invitee::create(['email' => $invite]);
+
+                $break->invitees()->attach($invitee->id);
+
                 Log::debug('New invite for: ' . $invite);
             }
         }
@@ -55,10 +60,19 @@ class BreakController extends Controller
     }
 
     public function show(Request $request, $id) {
-        $break = GameBreak::with('options')->findorfail($id);
+        $break = GameBreak::with(['options','invitees'])->findorfail($id);
 
+        $invitee = null;
+
+        if(!$request->input('invitee_id')) {
+            $invitee = $break->invitees()->where('email',auth()->user()->email)->first();
+        } else {
+            $invitee = $break->invitees()->find($request->input('invitee_id'));
+        }
+        Log::debug("Invitee located: " . $invitee);
         return view('break.show', [
-            'break' => $break
+            'break' => $break,
+            'invitee' => $invitee
         ]);
     }
 }

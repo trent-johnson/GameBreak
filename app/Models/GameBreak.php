@@ -20,4 +20,13 @@ class GameBreak extends Model
     public function options() {
         return $this->hasMany(Option::class,'break_id');
     }
+
+    public function invitees() {
+        return $this->belongsToMany(
+            Invitee::class,
+            'break_invite',
+            'break_id',
+            'invitee_id'
+        );
+    }
 }
