@@ -42,6 +42,13 @@ class BreakController extends Controller
             }
         }
 
+        if($request->input('invitee_list')) {
+            $invites = explode(',',$request->input('invitee_list'));
+            foreach($invites as $invite) {
+                Log::debug('New invite for: ' . $invite);
+            }
+        }
+
         $successes = collect(['New Game Break scheduled successfully.']);
 
         return redirect()->route('breaks');
