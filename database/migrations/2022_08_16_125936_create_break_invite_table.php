@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('break_id');
             $table->integer('invitee_id');
             $table->integer('status')->default(0);
+            $table->string('secure')->nullable();
 
             $table->unique(['break_id','invitee_id']);
 

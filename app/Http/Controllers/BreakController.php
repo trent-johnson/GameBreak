@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BreakInvite;
 use App\Models\GameBreak;
 use App\Models\Option;
 use App\Models\Invitee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class BreakController extends Controller
 {
@@ -47,8 +49,11 @@ class BreakController extends Controller
             foreach($invites as $invite) {
                 $invite = str_replace(' ','',$invite);
                 $invitee = Invitee::create(['email' => $invite]);
+                $secure = bin2hex(random_bytes(16));
 
-                $break->invitees()->attach($invitee->id);
+                $break->invitees()->attach($invitee->id, ['secure' => $secure]);
+
+                Mail::to($invite)->send(new BreakInvite($invitee, $break, $secure));
 
                 Log::debug('New invite for: ' . $invite);
             }

@@ -16,10 +16,7 @@ return new class extends Migration
         Schema::create('invitee', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('break_id');
             $table->string('email');
-            $table->integer('status')->default(0);
-            $table->integer('option_id');
         });
     }
 
