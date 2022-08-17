@@ -13,4 +13,13 @@ class Invitee extends Model
     protected $fillable = [
         'email'
     ];
+
+    public function breaks() {
+        return $this->belongsToMany(
+            GameBreak::class,
+            'break_invite',
+            'invitee_id',
+            'break_id'
+        )->withPivot('status','secure');
+    }
 }

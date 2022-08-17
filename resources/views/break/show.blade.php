@@ -4,11 +4,9 @@
             {{ __('Game Break') }}
         </h2>
     </x-slot>
-
-
-        @csrf
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <livewire:invite-control :break="$break" :invitee="$invitee"></livewire:invite-control>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="grid grid-cols-2">
                         <div class="p-6 bg-white border-b border-gray-200">
@@ -23,9 +21,9 @@
                                 @forelse($break->invitees()->get() as $invite)
                                     <p>
                                         {{ $invite->email }}
-                                        @if($invite->status == 0)
+                                        @if($invite->pivot->status == 0)
                                             <x-invite-tentative></x-invite-tentative>
-                                        @elseif($invite->status == 1)
+                                        @elseif($invite->pivot->status == 1)
                                             <x-invite-accepted></x-invite-accepted>
                                         @else
                                             <x-invite-declined></x-invite-declined>

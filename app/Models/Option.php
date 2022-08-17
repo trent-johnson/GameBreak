@@ -17,4 +17,8 @@ class Option extends Model
     public function votes() {
         return $this->hasMany(Vote::class);
     }
+
+    public function break() {
+        return $this->belongsTo(GameBreak::class);
+    }
 }

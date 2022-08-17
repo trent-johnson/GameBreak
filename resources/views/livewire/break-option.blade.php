@@ -23,7 +23,11 @@
     @if($invitee_id)
     <div class="w-auto">
         <x-loader-animation></x-loader-animation>
-        <x-vote :invitee_id="$invitee_id" wire:loading.remove>Vote!</x-vote>
+        <div wire:loading.remove>
+            <x-vote :invitee_id="$invitee_id" :disabled="$disabled" :vote_status="$vote_status" >
+                {{ $vote_cta }}
+            </x-vote>
+        </div>
     </div>
     @endif
 </div>
