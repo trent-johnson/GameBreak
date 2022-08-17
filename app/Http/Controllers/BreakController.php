@@ -69,9 +69,9 @@ class BreakController extends Controller
 
         $invitee = null;
 
-        if(!$request->input('invitee_id')) {
+        if(!$request->input('invitee_id') && auth()->check()) {
             $invitee = $break->invitees()->where('email',auth()->user()->email)->first();
-        } else {
+        } elseif($request->input('invitee_id')) {
             $invitee = $break->invitees()->find($request->input('invitee_id'));
         }
         Log::debug("Invitee located: " . $invitee);

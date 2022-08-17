@@ -17,6 +17,8 @@ Route::get('/', function () {
     return redirect()->route('breaks');
 });
 
+
+
 Route::middleware(['auth'])->group(function() {
 
     /////////////////////////
@@ -28,13 +30,15 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/breaks', [\App\Http\Controllers\BreakController::class,'index'])->name('breaks');
     Route::get('/break/new',[\App\Http\Controllers\BreakController::class,'create'])->name('newBreak');
     Route::post('/break',[\App\Http\Controllers\BreakController::class,'save'])->name('saveBreak');
-    Route::get('/break/{id}',[\App\Http\Controllers\BreakController::class,'show'])->name('showBreak');
 
     ///////////////////
     /// USER ROUTES ///
     Route::get('/user/{user}', [\App\Http\Controllers\UserController::class,'show'])->name('profile');
     Route::post('/user/{user}', [\App\Http\Controllers\UserController::class,'update'])->name('updateProfile');
 });
+
+Route::get('/break/{id}',[\App\Http\Controllers\BreakController::class,'show'])->name('showBreak');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

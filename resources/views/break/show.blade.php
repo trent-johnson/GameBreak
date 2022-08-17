@@ -6,7 +6,9 @@
     </x-slot>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <livewire:invite-control :break="$break" :invitee="$invitee"></livewire:invite-control>
+                @if($invitee)
+                    <livewire:invite-control :break="$break" :invitee="$invitee"></livewire:invite-control>
+                @endif
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="grid grid-cols-2">
                         <div class="p-6 bg-white border-b border-gray-200">
@@ -17,21 +19,7 @@
                         </div>
                         <div class="p-6 bg-white border-b border-gray-200">
                             <div class="my-3">
-                                <p class="border-b border-1 font-light border-gray-400">Invite List:</p>
-                                @forelse($break->invitees()->get() as $invite)
-                                    <p>
-                                        {{ $invite->email }}
-                                        @if($invite->pivot->status == 0)
-                                            <x-invite-tentative></x-invite-tentative>
-                                        @elseif($invite->pivot->status == 1)
-                                            <x-invite-accepted></x-invite-accepted>
-                                        @else
-                                            <x-invite-declined></x-invite-declined>
-                                        @endif
-                                    </p>
-                                @empty
-                                    <p>No invites have been added to this Game Break.</p>
-                                @endforelse
+                                <livewire:invite-list :break="$break"></livewire:invite-list>
                             </div>
                         </div>
                     </div>
