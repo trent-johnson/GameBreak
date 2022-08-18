@@ -7,7 +7,7 @@ An upcoming Game Break has been scheduled:
 
 _{{date('D M jS, g:i a',strtotime($break->event_datetime)) }}_
 
-@component('mail::button', ['url' => 'http://localhost:6099/break/' . $break->id . '?invitee_id=' . $invitee->id . '&secure=' . $secure])
+@component('mail::button', ['url' =>  url('/') . '/break/' . $break->id . '?invitee_id=' . $invitee->id . '&secure=' . $secure])
 View Game Break
 @endcomponent
 
