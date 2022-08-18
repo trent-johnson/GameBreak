@@ -35,6 +35,7 @@ class BreakOption extends Component
         });
         $this->game = $bgg_game['item'];
 
+
         $this->option = Option::find($this->option_id);
 
         if($this->invitee_id && $this->option->break->invitees()->where('invitee_id',$this->invitee_id)->first()->pivot->status == 1) {
@@ -57,6 +58,7 @@ class BreakOption extends Component
 
     public function render()
     {
+        $this->option = Option::find($this->option_id);
         return view('livewire.break-option');
     }
 

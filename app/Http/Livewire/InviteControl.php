@@ -28,6 +28,7 @@ class InviteControl extends Component
             $this->emit('rsvpAccepted');
         } else {
             $this->invite_status = 2;
+            $this->break->votes()->where('invitee_id',$this->invitee->id)->delete();
         }
         $this->break->invitees()->updateExistingPivot($this->invitee->id, ['status' => $this->invite_status]);
     }
