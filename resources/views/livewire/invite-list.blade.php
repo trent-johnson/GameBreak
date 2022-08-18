@@ -17,7 +17,7 @@
     <ul>
     @forelse($break->invitees()->get() as $invite)
         <li class="my-2">
-            - {{ $invite->email }}
+            - {{ ($invite->user) ? $invite->user->name : $invite->email }}
             @if($invite->pivot->status == 0)
                 <x-invite-tentative></x-invite-tentative>
             @elseif($invite->pivot->status == 1)

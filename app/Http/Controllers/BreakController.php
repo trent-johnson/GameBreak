@@ -33,7 +33,15 @@ class BreakController extends Controller
             'event_datetime' => $request->input('event_datetime'),
             'location' => $request->input('location'),
             'notes' => $request->input('notes'),
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'rsvp_control' => $request->input('rsvp_control'),
+            'rsvp_timing' => $request->input('rsvp_timing'),
+            'vote_control' => $request->input('vote_control'),
+            'vote_timing' => $request->input('vote_timing'),
+            'remind_rsvp' => $request->input('remind_rsvp'),
+            'notify_vote' => $request->input('notify_vote'),
+            'remind_vote' => $request->input('remind_vote'),
+            'remind_break' => $request->input('remind_break')
         ]);
 
         if(count($request->input('game_options'))) {

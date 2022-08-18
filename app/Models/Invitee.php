@@ -22,4 +22,8 @@ class Invitee extends Model
             'break_id'
         )->withPivot('status','secure');
     }
+
+    public function user() {
+        return $this->hasOne(User::class,'email','email');
+    }
 }

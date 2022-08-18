@@ -1,11 +1,11 @@
 @component('mail::message')
 # You're Invited!
 
-An upcoming Game Break has been scheduled:
+{{$break->user->name}} scheduled a new Game Break and would like you to participate. Here's the details:
 
-### {{$break->location}}
+### Location: {{$break->location}}
 
-_{{date('D M jS, g:i a',strtotime($break->event_datetime)) }}_
+Date: _{{date('D M jS, g:i a',strtotime($break->event_datetime)) }}_
 
 @component('mail::button', ['url' =>  url('/') . '/break/' . $break->id . '?invitee_id=' . $invitee->id . '&secure=' . $secure])
 View Game Break

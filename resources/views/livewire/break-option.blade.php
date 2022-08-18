@@ -20,7 +20,7 @@
         </div>
 
     </div>
-    @if($invitee_id)
+    @if($can_vote)
     <div class="w-auto">
         <x-loader-animation></x-loader-animation>
         <div wire:loading.remove>

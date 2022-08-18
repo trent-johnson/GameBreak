@@ -25,6 +25,7 @@ class InviteControl extends Component
     public function updateStatus($status) {
         if($status == 'Accept') {
             $this->invite_status = 1;
+            $this->emit('rsvpAccepted');
         } else {
             $this->invite_status = 2;
         }

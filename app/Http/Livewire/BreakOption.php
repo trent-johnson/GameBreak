@@ -14,13 +14,15 @@ class BreakOption extends Component
     public $option_id;
     public $thing_id;
     public $invitee_id;
+    public Invitee $invitee;
     public $game;
     public $disabled = true;
     public $option;
+    public $can_vote = false;
     public $vote_cta = 'Vote!';
     public $vote_status = 0;
 
-    protected $listeners = ['votePlaced'];
+    protected $listeners = ['votePlaced','rsvpAccepted'];
 
     public function mount() {
         $bgg_game = Cache::remember($this->thing_id . '_game',60*60*24, function () {
@@ -35,7 +37,10 @@ class BreakOption extends Component
 
         $this->option = Option::find($this->option_id);
 
-        if($this->invitee_id) {
+        if($this->invitee_id && $this->option->break->invitees()->where('invitee_id',$this->invitee_id)->first()->pivot->status == 1) {
+
+            $this->can_vote = true;
+
             if ($this->option->break->votes->doesntContain('invitee_id', $this->invitee_id)) {
                 $this->disabled = false;
                 $this->vote_status = 0;
@@ -74,5 +79,10 @@ class BreakOption extends Component
             $this->vote_cta = 'Already Voted';
             $this->vote_status = 2;
         }
+    }
+
+    public function rsvpAccepted() {
+        $this->can_vote = true;
+        $this->disabled = false;
     }
 }

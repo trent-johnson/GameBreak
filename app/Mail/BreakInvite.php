@@ -36,7 +36,7 @@ class BreakInvite extends Mailable
      */
     public function build()
     {
-        return $this->from('gamebreak@mail.gamebreak.app','New Game Break Invitation')
+        return $this->from('noreply@mail.gamebreak.app',$this->break->user->name . ' has invited you to a Game Break!')
             ->markdown('emails.break.invite');
     }
 }

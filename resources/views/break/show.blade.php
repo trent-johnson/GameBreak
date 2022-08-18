@@ -14,6 +14,7 @@
                         <div class="p-6 bg-white border-b border-gray-200">
                             <div class="my-3">
                                 <p class="text-lg">{{$break->location}} - {{ date('D M jS, g:i a',strtotime($break->event_datetime)) }}</p>
+                                <p>Created by: {{ $break->user->name }}</p>
                                 <p>{{ $break->notes }}</p>
                             </div>
                         </div>

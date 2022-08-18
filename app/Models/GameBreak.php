@@ -14,7 +14,20 @@ class GameBreak extends Model
         'event_datetime',
         'location',
         'notes',
-        'user_id'
+        'user_id',
+        'vote_timing',
+        'rsvp_timing',
+        'rsvp_lock',
+        'vote_lock',
+        'rsvp_control',
+        'vote_control',
+        'rsvp_limit',
+        'vote_limit',
+        'remind_rsvp',
+        'remind_vote',
+        'notify_vote',
+        'remind_break',
+        'invitee_limit'
     ];
 
     public function options() {
@@ -38,5 +51,9 @@ class GameBreak extends Model
             'break_id',
             'invitee_id'
         )->withPivot('status','secure');
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }
