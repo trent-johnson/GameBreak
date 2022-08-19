@@ -2,14 +2,14 @@
 
 namespace App\Mail;
 
-use App\Models\Invitee;
 use App\Models\GameBreak;
+use App\Models\Invitee;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class BreakInvite extends Mailable
+class RSVPReminder extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,9 +22,9 @@ class BreakInvite extends Mailable
      *
      * @return void
      */
-    public function __construct(Invitee $invitee, GameBreak $break, $secure)
+    public function __construct(Invitee $remind, GameBreak $break, $secure)
     {
-        $this->invitee = $invitee;
+        $this->invitee = $remind;
         $this->break = $break;
         $this->secure = $secure;
     }
@@ -36,8 +36,8 @@ class BreakInvite extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@mail.gamebreak.app','Game Break')
-            ->subject($this->break->user->name . ' has invited you to a Game Break!')
-            ->markdown('emails.break.invite');
+        return $this->from('noreply@mail.gamebreak.app', 'Game Break')
+            ->subject('Reminder: ' . $this->break->user->name . "'s invite is waiting")
+            ->markdown('emails.break.rsvp-reminder');
     }
 }

@@ -55,10 +55,15 @@ class BreakController extends Controller
         if($request->input('invitee_list')) {
             $invites = explode(',',$request->input('invitee_list'));
             foreach($invites as $invite) {
-                $invite = str_replace(' ','',$invite);
-                $invitee = Invitee::create(['email' => $invite]);
-                $secure = bin2hex(random_bytes(16));
 
+                $invite =  strtolower(str_replace(' ','',$invite));
+                //Check if invite exists
+                $invitee = Invitee::where('email', $invite)->first();
+
+                if(!$invitee) {
+                    $invitee = Invitee::create(['email' => $invite]);
+                }
+                $secure = bin2hex(random_bytes(16));
                 $break->invitees()->attach($invitee->id, ['secure' => $secure]);
 
                 Mail::to($invite)->send(new BreakInvite($invitee, $break, $secure));
@@ -80,7 +85,14 @@ class BreakController extends Controller
         if(!$request->input('invitee_id') && auth()->check()) {
             $invitee = $break->invitees()->where('email',auth()->user()->email)->first();
         } elseif($request->input('invitee_id')) {
-            $invitee = $break->invitees()->find($request->input('invitee_id'));
+            $invitee = $break->invitees()->where([
+                ['id',$request->input('invitee_id')],
+                ['secure',$request->input('secure')]
+            ])->first();
+            if(!$invitee) {
+                Log::debug('Unable to authenticate guest invitee');
+                return redirect()->route('login');
+            }
         }
         Log::debug("Invitee located: " . $invitee);
         return view('break.show', [

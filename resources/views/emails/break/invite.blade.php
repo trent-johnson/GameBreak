@@ -1,7 +1,7 @@
 @component('mail::message')
 # You're Invited!
 
-{{$break->user->name}} scheduled a new Game Break and would like you to participate. Here's the details:
+Ready to play some games? {{$break->user->name}} scheduled a new Game Break and would like you join! Here's the details:
 
 ### Location: {{$break->location}}
 
@@ -14,6 +14,7 @@ View Game Break
 @component('mail::panel')
 If you're interested, you can RSVP and vote for your favorite game to be played by visiting the Game Break page.
 @endcomponent
+
 ___
 
 <center><img src="{{ url('/') . '/images/logo.png#center' }} " alt="Game Break"></center>
