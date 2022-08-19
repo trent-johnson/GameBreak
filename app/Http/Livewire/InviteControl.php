@@ -30,7 +30,8 @@ class InviteControl extends Component
             $this->invite_status = 1;
             $this->emit('rsvpAccepted');
 
-            Mail::to($this->invitee->email)->send(new AcceptedInvite($this->invitee, $this->break, $this->secure));
+            Mail::to($this->invitee->email)
+                ->queue(new AcceptedInvite($this->invitee, $this->break, $this->secure));
 
         } else {
             $this->invite_status = 2;

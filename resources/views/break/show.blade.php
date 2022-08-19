@@ -18,7 +18,7 @@
                     <livewire:invite-control :break="$break" :invitee="$invitee"></livewire:invite-control>
                 @endif
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="grid grid-cols-2">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6 bg-white border-b border-gray-200">
                             <div class="my-3">
                                 <p class="text-lg pb-2">
@@ -41,7 +41,22 @@
                         </div>
                     </div>
                 </div>
-
+                @if($break->vote_lock == 1 && $break->options->where('winner',1)->count())
+                    <div class="overflow-hidden shadow-sm sm:rounded-lg my-4 p-4 bg-white">
+                        <h2 class="mb-5 font-semibold text-xl text-indigo-500 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                            </svg> Voting Winner{{ ($break->options->where('winner',1)->count() > 1) ? 's' : '' }} <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                            </svg>
+                        </h2>
+                        @foreach($break->options->where('winner',1) as $option)
+                        <div class="my-2">
+                            <livewire:break-option :option_id="$option->id" :thing_id="$option->bgg_thing_id" :invitee_id="($invitee) ? $invitee->id : null" />
+                        </div>
+                        @endforeach
+                    </div>
+                @endif
                 <h2 class="my-5 font-semibold text-xl text-gray-800 text-center">
                     Available Games
                 </h2>

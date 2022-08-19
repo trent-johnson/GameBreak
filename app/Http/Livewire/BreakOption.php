@@ -41,10 +41,15 @@ class BreakOption extends Component
         if($this->invitee_id && $this->option->break->invitees()->where('invitee_id',$this->invitee_id)->first()->pivot->status == 1) {
 
             $this->can_vote = true;
-
             if ($this->option->break->votes->doesntContain('invitee_id', $this->invitee_id)) {
-                $this->disabled = false;
-                $this->vote_status = 0;
+
+                if($this->option->break->vote_lock == 1) {
+                    $this->vote_cta = 'Voting Closed';
+                    $this->vote_status = 2;
+                } else {
+                    $this->disabled = false;
+                    $this->vote_status = 0;
+                }
             } elseif ($this->option->break->votes->where('invitee_id', $this->invitee_id)->where('option_id', $this->option->id)->count()) {
                 Log::debug('Your choice ' . $this->invitee_id . ' and ' . $this->option->id);
                 $this->vote_cta = 'Your Choice!';

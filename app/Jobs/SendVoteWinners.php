@@ -77,7 +77,7 @@ class SendVoteWinners implements ShouldQueue
             if(count($email_games)) {
                 foreach ($break->invitees as $remind) {
                     Log::debug('Sending vote winner to Invitee ' . $remind->id);
-                    Mail::to($remind->email)->send(new VoteWinner($remind, $break, $remind->pivot->secure, $email_games));
+                    Mail::to($remind->email)->queue(new VoteWinner($remind, $break, $remind->pivot->secure, $email_games));
                 }
             } else {
                 Log::debug('No votes were placed. Skipping vote notification');

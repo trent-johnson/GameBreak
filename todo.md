@@ -24,7 +24,6 @@
 
 ### Notifications
 
-- Send Calendar Invite after RSVP accepts.
 - Send notice of cancellation to Game Break attendees if accepted when cancelled. 
 - Reminder emails to go out the day and hour before the session begins. 
 

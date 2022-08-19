@@ -66,7 +66,7 @@ class BreakController extends Controller
                 $secure = bin2hex(random_bytes(16));
                 $break->invitees()->attach($invitee->id, ['secure' => $secure]);
 
-                Mail::to($invite)->send(new BreakInvite($invitee, $break, $secure));
+                Mail::to($invite)->queue(new BreakInvite($invitee, $break, $secure));
 
                 Log::debug('New invite for: ' . $invite);
             }
