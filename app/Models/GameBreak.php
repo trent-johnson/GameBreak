@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
 use DateTime;
+use Spatie\CalendarLinks\Link;
 
 class GameBreak extends Model
 {
@@ -62,16 +63,13 @@ class GameBreak extends Model
 
     public function generateCalendar() {
 
-        return $event = Calendar::create('Game Break')
-            ->event(Event::create($this->user->name . "'s Game Break")
-                ->startsAt(new DateTime($this->event_datetime))
-                ->endsAt(new DateTime(date('Y-m-d H:i:s',strtotime($this->event_datetime . "+2hours"))))
+        $event = Link::create($this->user->name . "'s Game Break",
+            new DateTime($this->event_datetime),
+            new DateTime(date('Y-m-d H:i:s',strtotime($this->event_datetime . "+2hours"))))
                 ->description('Upcoming Game Break session. ' . $this->notes)
-                ->address($this->location)
-                ->addressName($this->location)
-                ->uniqueIdentifier('gamebreak_' . $this->id)
-                ->organizer('noreply@gamebreak.app', 'Game Break')
-            );
+                ->address($this->location);
+
+        return base64_decode(str_replace('data:text/calendar;charset=utf8;base64,','',$event->ics()));
 
     }
 }

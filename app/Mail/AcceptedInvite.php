@@ -39,7 +39,7 @@ class AcceptedInvite extends Mailable
         return $this->from('noreply@mail.gamebreak.app','Game Break')
             ->subject($this->break->user->name . ' Game Break')
             ->markdown('emails.break.accept')
-            ->attachData($this->break->generateCalendar()->get(), 'game-break.ics', [
+            ->attachData($this->break->generateCalendar(), 'game-break.ics', [
             'mime' => 'text/calendar',
         ]);
     }
