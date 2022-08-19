@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\IcalendarGenerator\Components\Calendar;
+use Spatie\IcalendarGenerator\Components\Event;
+use DateTime;
 
 class GameBreak extends Model
 {
@@ -55,5 +58,20 @@ class GameBreak extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function generateCalendar() {
+
+        return $event = Calendar::create('Game Break')
+            ->event(Event::create($this->user->name . "'s Game Break")
+                ->startsAt(new DateTime($this->event_datetime))
+                ->endsAt(new DateTime(date('Y-m-d H:i:s',strtotime($this->event_datetime . "+2hours"))))
+                ->description('Upcoming Game Break session. ' . $this->notes)
+                ->address($this->location)
+                ->addressName($this->location)
+                ->uniqueIdentifier('gamebreak_' . $this->id)
+                ->organizer('noreply@gamebreak.app', 'Game Break')
+            );
+
     }
 }

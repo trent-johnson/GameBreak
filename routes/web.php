@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function() {
 });
 
 Route::get('/break/{id}',[\App\Http\Controllers\BreakController::class,'show'])->name('showBreak');
-
+Route::get('/break/{id}/calendar',[\App\Http\Controllers\BreakController::class,'downloadInvite'])->name('calendarInvite');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.10",
+        "spatie/icalendar-generator": "^2.3",
         "symfony/http-client": "^6.1",
         "symfony/mailgun-mailer": "^6.1"
     },
