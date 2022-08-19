@@ -11,7 +11,8 @@ class Option extends Model
     protected $table ='options';
     protected $fillable = [
         'bgg_thing_id',
-        'break_id'
+        'break_id',
+        'winner'
     ];
 
     public function votes() {

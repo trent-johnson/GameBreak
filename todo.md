@@ -20,10 +20,10 @@
 - Hide attendee information from guests
 - Display "winner(s)" of voting after voting ends
 - Display cancellation page if Break is attempted to be accessed after cancelled.
+- Mobile (sm) view needs adjusted
 
 ### Notifications
 
-- Send notification of game(s) that won voting
 - Send Calendar Invite after RSVP accepts.
 - Send notice of cancellation to Game Break attendees if accepted when cancelled. 
 - Reminder emails to go out the day and hour before the session begins. 
@@ -36,3 +36,7 @@
 - Ability to create recurring game break sessions.
 - Ability to allow open registration
   - A sharable link that will allow anyone to add themselves as an invitee to the game break.
+- Dark Mode Styles
+- Selecting games overall
+  - Should be able to select a game, search for new, and not loose the original selection
+  - The "popping" of the page as you move the slider is annoying. Should only update after releasing the drag button?
