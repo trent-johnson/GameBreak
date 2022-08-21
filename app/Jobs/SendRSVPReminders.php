@@ -45,7 +45,8 @@ class SendRSVPReminders implements ShouldQueue
         foreach($pending_game_breaks as $break) {
 
             Log::debug('Checking Game Break ' . $break->id);
-            foreach($break->invitees()->where('status',0) as $remind) {
+            $reminders = $break->invitees()->where('status',0)->get();
+            foreach($reminders as $remind) {
 
                 Log::debug('Sending reminder to Invitee ' . $remind->id);
                 Mail::to($remind->email)->queue(new RSVPReminder($remind, $break, $remind->pivot->secure));

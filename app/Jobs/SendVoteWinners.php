@@ -74,8 +74,9 @@ class SendVoteWinners implements ShouldQueue
 
             Log::debug('Vote winner(s): ' . print_r($email_games,true));
 
+            $reminders = $break->invitees()->where('status',1)->get();
             if(count($email_games)) {
-                foreach ($break->invitees()->where('status',1) as $remind) {
+                foreach ($reminders as $remind) {
                     Log::debug('Sending vote winner to Invitee ' . $remind->id);
                     Mail::to($remind->email)->queue(new VoteWinner($remind, $break, $remind->pivot->secure, $email_games));
                 }
