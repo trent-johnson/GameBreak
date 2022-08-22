@@ -42,7 +42,6 @@ class SendVoteWinners implements ShouldQueue
         $pending_game_breaks = GameBreak::with('invitees')->where([
             ['notify_vote','=',1],
             ['vote_lock','=',1],
-            ['event_datetime','<=',date('Y-m-d H:i:s', strtotime('+12 hour'))],
             ['event_datetime', '>', date('Y-m-d H:i:s')]
         ])->get();
         foreach($pending_game_breaks as $break) {

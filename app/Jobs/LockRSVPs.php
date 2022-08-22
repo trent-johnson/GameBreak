@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Mail\BreakInvite;
 use App\Mail\RSVPReminder;
 use App\Models\GameBreak;
 use Illuminate\Bus\Queueable;
@@ -11,14 +10,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
-class SendRSVPReminders implements ShouldQueue
+class LockRSVPs implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-
 
     /**
      * Create a new job instance.
@@ -27,6 +24,7 @@ class SendRSVPReminders implements ShouldQueue
      */
     public function __construct()
     {
+        //
     }
 
     /**
@@ -36,21 +34,21 @@ class SendRSVPReminders implements ShouldQueue
      */
     public function handle()
     {
-        Log::debug('Job fired for sending RSVP reminders for upcoming Game Breaks ');
+        Log::debug('Job fired for locking in RSVPs');
         $pending_game_breaks = GameBreak::with('invitees')->where([
-            ['remind_rsvp','=',1],
+            ['rsvp_control','=',1],
+            ['rsvp_lock','=',0],
             ['event_datetime', '>', date('Y-m-d H:i:s')]
-        ])->whereRaw('event_datetime <= NOW() + INTERVAL rsvp_timing + 24 HOUR')->get();
+        ])->whereRaw('event_datetime <= NOW() + INTERVAL rsvp_timing HOUR')->get();
         foreach($pending_game_breaks as $break) {
 
-            Log::debug('Checking Game Break ' . $break->id);
             $reminders = $break->invitees()->where('status',0)->get();
             foreach($reminders as $remind) {
-
-                Log::debug('Sending reminder to Invitee ' . $remind->id);
-                Mail::to($remind->email)->queue(new RSVPReminder($remind, $break, $remind->pivot->secure));
+                Log::debug('Auto declining pending invitation for break ' . $break->id . ' and invite ' . $remind->id);
+                $break->invitees()->updateExistingPivot($remind->id, ['status' => 2]);
             }
-            $break->remind_rsvp = 2;
+
+            $break->rsvp_lock = 1;
             $break->save();
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\CalcVoteWinners;
+use App\Jobs\LockRSVPs;
 use App\Jobs\SendRSVPReminders;
 use App\Jobs\SendVoteWinners;
 use Illuminate\Console\Scheduling\Schedule;
@@ -23,6 +24,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new SendRSVPReminders)->hourly();
         $schedule->job(new CalcVoteWinners)->hourlyAt(5);
         $schedule->job(new SendVoteWinners)->hourlyAt(10);
+        $schedule->job(new LockRSVPs)->hourlyAt(15);
     }
 
     /**

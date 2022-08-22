@@ -37,9 +37,8 @@ class CalcVoteWinners implements ShouldQueue
         $pending_game_breaks = GameBreak::with('invitees')->where([
             ['vote_control','=',1],
             ['vote_lock','=',0],
-            ['event_datetime','<=',date('Y-m-d H:i:s', strtotime('+24 hour'))],
             ['event_datetime', '>', date('Y-m-d H:i:s')]
-        ])->get();
+        ])->whereRaw('event_datetime <= NOW() + INTERVAL vote_timing HOUR')->get();
         foreach($pending_game_breaks as $break) {
 
             Log::debug('Checking Game Break vote winner status  ' . $break->id);

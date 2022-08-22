@@ -21,12 +21,14 @@
 - Hide attendee information from guests
 - Display "winner(s)" of voting after voting ends
 - Display cancellation page if Break is attempted to be accessed after cancelled.
-- Mobile (sm) view needs adjusted
+- Mobile (sm) view needs to be adjusted
 
 ### Notifications
 
 - Send notice of cancellation to Game Break attendees if accepted when cancelled. 
 - Reminder emails to go out the day and hour before the session begins. 
+- Send How to Play information with vote winner and break reminder notifications. 
+  - Pull the most popular YouTube vid from "How to play {name} board game"
 
 ### Other
 
