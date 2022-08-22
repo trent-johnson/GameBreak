@@ -7,6 +7,7 @@
 - Add option to filter games by single time value vs range.
 - Ability to set a limited number of attendees
 - "Pooling" of BGG Collections if multiple users w/ BGG Profiles are added as invitees.
+- Add option to be notified when invitee statuses change (new accept / decline / change)
 
 ### Game Break Management
 
@@ -39,3 +40,15 @@
 - Selecting games overall
   - Should be able to select a game, search for new, and not loose the original selection
   - The "popping" of the page as you move the slider is annoying. Should only update after releasing the drag button?
+
+
+
+### The Intended Workflow for Attendee
+
+- Receive initial invite
+- View Game Break and quickly understand who is invited and what games are being offered (what type of experience is this going to be?)
+- Decline or Accept
+- Quickly review the available games. Understand time commitment and type of game experience. Easy access to BGG for details.
+- Vote on my favorite(s) OR don't vote OR I'm new and not sure what I want, perhaps a type of game vote? Maybe this is on the organizer.
+- When the game decision has been made, send out an update to everyone.
+- Provide easy access to game overview and rules explanation.
