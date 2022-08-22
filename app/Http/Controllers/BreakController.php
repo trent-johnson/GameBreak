@@ -44,7 +44,7 @@ class BreakController extends Controller
             'remind_break' => $request->input('remind_break')
         ]);
 
-        if(count($request->input('game_options'))) {
+        if($request->input('game_options') && count($request->input('game_options'))) {
             Log::debug('Found game options submitted with new game break');
             foreach($request->input('game_options') as $option) {
                 Log::debug('Adding new option: ' . $option);
