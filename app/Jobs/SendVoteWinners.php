@@ -67,7 +67,7 @@ class SendVoteWinners implements ShouldQueue
 
                 $game_name = (count($game['name']) > 1) ? $game['name'][0]['@attributes']['value'] : $game['name']['@attributes']['value'];
 
-                $yt_game = Cache::remember($option->bgg_thing_id . '_youtube', 60*60*24, function() use ($game_name) {
+                $yt_game = Cache::remember($option->bgg_thing_id . '_yt', 60*60*24, function() use ($game_name) {
                     $response = Http::get('https://www.googleapis.com/youtube/v3/search?part=snippet&key=' . env('YOUTUBE_API_KEY') . '&maxResults=1&q=' . $game_name);
                     return json_decode($response->getBody(), true);
                 });
