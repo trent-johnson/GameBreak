@@ -19,11 +19,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-
         $schedule->job(new SendRSVPReminders)->hourly();
         $schedule->job(new CalcVoteWinners)->hourlyAt(5);
-        $schedule->job(new SendVoteWinners)->hourlyAt(10);
+        $schedule->job(new SendVoteWinners)->cron('* * * * *');
         $schedule->job(new LockRSVPs)->hourlyAt(15);
     }
 

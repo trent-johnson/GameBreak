@@ -4,6 +4,12 @@
 
 <center><img src="{{ $email_games[0]['thumbnail'] . '#center' }} " alt="{{ $email_games[0]['name'] }}"></center>
 <center>{{ $email_games[0]['name'] }}</center>
+
+If you're not familiar with {{ $email_games[0]['name'] }} or just want to brush up with a quick overview, here's a
+quick video:
+
+<center><a href="https://www.youtube.com/watch?v={{ $email_games['yt_info']['id']['videoId'] }}"><img src="{{ $email_games['yt_info']['snippet']['thumbnails']['default']['url'] . '#center' }}" width="{{ $email_games['yt_info']['snippet']['thumbnails']['default']['width'] }}" height="{{ $email_games['yt_info']['snippet']['thumbnails']['default']['height'] }}" /></a></center>
+
 @else
 # Hold up - It's a tie!
 
