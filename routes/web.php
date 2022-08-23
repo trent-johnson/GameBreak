@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/breaks', [\App\Http\Controllers\BreakController::class,'index'])->name('breaks');
     Route::get('/break/new',[\App\Http\Controllers\BreakController::class,'create'])->name('newBreak');
     Route::post('/break',[\App\Http\Controllers\BreakController::class,'save'])->name('saveBreak');
+    Route::delete('/break/{id}',[\App\Http\Controllers\BreakController::class,'delete'])->name('deleteBreak');
 
     ///////////////////
     /// USER ROUTES ///

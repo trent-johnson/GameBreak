@@ -5,7 +5,7 @@
 <center><img src="{{ $email_games[0]['thumbnail'] . '#center' }} " alt="{{ $email_games[0]['name'] }}"></center>
 <center>{{ $email_games[0]['name'] }}</center>
 
-If you're not familiar with {{ $email_games[0]['name'] }} or just want to brush up with a quick overview, here's a
+If you're not familiar with {{ $email_games[0]['name'] }} or just want to brush up with an overview, here's a
 quick video:
 
 <center><a href="https://www.youtube.com/watch?v={{ $email_games[0]['yt_info']['id']['videoId'] }}"><img src="{{ $email_games[0]['yt_info']['snippet']['thumbnails']['default']['url'] . '#center' }}" width="{{ $email_games[0]['yt_info']['snippet']['thumbnails']['default']['width'] }}" height="{{ $email_games[0]['yt_info']['snippet']['thumbnails']['default']['height'] }}" /></a></center>
@@ -18,6 +18,12 @@ The following tied for the most votes:
 @foreach($email_games as $game)
 <center><img src="{{ $game['thumbnail'] . '#center' }} " alt="{{ $game['name'] }}"></center>
 <center>{{ $game['name'] }}</center>
+
+If you're not familiar with {{ $game['name'] }} or just want to brush up with an overview, here's a
+quick video:
+
+<center><a href="https://www.youtube.com/watch?v={{ $game['yt_info']['id']['videoId'] }}"><img src="{{ $game['yt_info']['snippet']['thumbnails']['default']['url'] . '#center' }}" width="{{ $game[0]['yt_info']['snippet']['thumbnails']['default']['width'] }}" height="{{ $game['yt_info']['snippet']['thumbnails']['default']['height'] }}" /></a></center>
+
 @endforeach
 @endif
 

@@ -15,11 +15,12 @@
 - Ability to edit game break details after creation.
 - Ability to edit RSVP status.
 - Based of the number of plays for a break, that should determine the number of votes for invitees
+- Custom video / helper video / link vs auto pull from YouTube
+- Option to not use votes; Instead, the game options selected are assumed to be the games played during the session
 
 ### Viewing Game Break
 
 - Hide attendee information from guests
-- Display "winner(s)" of voting after voting ends
 - Display cancellation page if Break is attempted to be accessed after cancelled.
 - Mobile (sm) view needs to be adjusted
 
@@ -27,8 +28,6 @@
 
 - Send notice of cancellation to Game Break attendees if accepted when cancelled. 
 - Reminder emails to go out the day and hour before the session begins. 
-- Send How to Play information with vote winner and break reminder notifications. 
-  - Pull the most popular YouTube vid from "How to play {name} board game"
 
 ### Other
 
@@ -43,7 +42,11 @@
   - Should be able to select a game, search for new, and not loose the original selection
   - The "popping" of the page as you move the slider is annoying. Should only update after releasing the drag button?
 
+### Mobile Application Specific
 
+- Push notifications vs just email
+- Add invitees direct from phone contacts
+- 
 
 ### The Intended Workflow for Attendee
 

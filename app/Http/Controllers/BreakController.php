@@ -76,7 +76,6 @@ class BreakController extends Controller
 
         return redirect()->route('breaks');
     }
-
     public function show(Request $request, $id) {
         $break = GameBreak::with(['options','invitees'])->findorfail($id);
 
@@ -100,7 +99,11 @@ class BreakController extends Controller
             'invitee' => $invitee
         ]);
     }
+    public function delete(Request $request, $id) {
+        GameBreak::find($id)->delete();
 
+        return redirect()->route('breaks');
+    }
     public function downloadInvite(Request $request, $id) {
         $break = GameBreak::with('user')->findorfail($id);
         return response($break->generateCalendar(), 200, [
