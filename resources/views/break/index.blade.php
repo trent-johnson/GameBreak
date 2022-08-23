@@ -80,6 +80,9 @@
                         No Upcoming Game Breaks Found
                     @endforelse
                 </div>
+                <livewire:game-break-calendar
+                    :day-click-enabled="false"
+                    :drag-and-drop-enabled="false" />
             </div>
         </div>
     </div>

@@ -39,6 +39,7 @@
                 {{ $slot }}
             </main>
             @livewireScripts
+            @livewireCalendarScripts
         </div>
     </body>
 </html>

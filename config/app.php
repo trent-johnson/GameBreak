@@ -182,9 +182,11 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
+        \Asantibanez\LivewireCalendar\LivewireCalendarServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -210,6 +212,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'LivewireCalendar' => \Asantibanez\LivewireCalendar\LivewireCalendarFacade::class,
+
     ])->toArray(),
 
 ];
