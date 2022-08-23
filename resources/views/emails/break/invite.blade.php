@@ -3,9 +3,9 @@
 
 Ready to play some games? {{$break->user->name}} scheduled a new Game Break and would like you join! Here's the details:
 
-### Location: {{$break->location}}
+Where: *{{$break->location}}*
 
-Date: _{{date('D M jS, g:i a',strtotime($break->event_datetime)) }}_
+When: *{{date('D M jS, g:i a',strtotime($break->event_datetime)) }}*
 
 @component('mail::button', ['url' =>  url('/') . '/break/' . $break->id . '?invitee_id=' . $invitee->id . '&secure=' . $secure])
 View Game Break

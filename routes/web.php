@@ -17,8 +17,6 @@ Route::get('/', function () {
     return redirect()->route('breaks');
 });
 
-
-
 Route::middleware(['auth'])->group(function() {
 
     /////////////////////////
@@ -40,10 +38,5 @@ Route::middleware(['auth'])->group(function() {
 
 Route::get('/break/{id}',[\App\Http\Controllers\BreakController::class,'show'])->name('showBreak');
 Route::get('/break/{id}/calendar',[\App\Http\Controllers\BreakController::class,'downloadInvite'])->name('calendarInvite');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 
 require __DIR__.'/auth.php';
