@@ -74,7 +74,7 @@ class GameBreak extends Model
         $event = Link::create($this->user->name . "'s Game Break",
             new DateTime($this->event_datetime),
             new DateTime(date('Y-m-d H:i:s',strtotime($this->event_datetime . "+2hours"))))
-                ->description('Upcoming Game Break session. ' . $this->notes . '<br /><br /><a href="' . $url . '">View Details</a>' )
+                ->description('Upcoming Game Break session.\n\nView Details: ' . $url . '\n\n' . $this->notes)
                 ->address($this->location);
 
         return str_replace(
