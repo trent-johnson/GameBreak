@@ -27,10 +27,19 @@
                     </svg>
                     {{(array_key_exists('playingtime',$game)) ? $game['playingtime']['@attributes']['value'] . 'm' : 'N/A' }}</div>
                 <div class="flex-auto bg-slate-300 rounded text-gray-500  px-2 py-1 text-sm mb-2">
-                    <a href="https://boardgamegeek.com/boardgame/{{ $thing_id }}" target="_blank">
+                    <a href="https://boardgamegeek.com/boardgame/{{ $thing_id }}" target="_blank" data-popover-target="popover-{{ $thing_id }}-details">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg> Details</a>
+                    <div id="popover-{{ $thing_id }}-details" role="tooltip" class="inline-block absolute invisible z-10 w-64 text-sm font-light text-gray-500 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transition-opacity duration-300 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                        <div class="py-2 px-3 bg-gray-100 rounded-t-lg border-b border-gray-200 dark:border-gray-600 dark:bg-gray-700">
+                            <h3 class="font-semibold text-gray-900 dark:text-white">Description</h3>
+                        </div>
+                        <div class="py-2 px-3">
+                            <p>{{ Str::limit($game['description'],150,'...') }}</p>
+                        </div>
+                        <div data-popper-arrow></div>
+                    </div>
                 </div>
 
             </div>
