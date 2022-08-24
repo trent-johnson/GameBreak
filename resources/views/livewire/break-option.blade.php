@@ -27,10 +27,41 @@
                     </svg>
                     {{(array_key_exists('playingtime',$game)) ? $game['playingtime']['@attributes']['value'] . 'm' : 'N/A' }}</div>
                 <div class="flex-auto bg-slate-300 rounded text-gray-500  px-2 py-1 text-sm mb-2">
-                    <a href="https://boardgamegeek.com/boardgame/{{ $thing_id }}" target="_blank" data-popover-target="popover-{{ $thing_id }}-details">
+                    <a href="#" data-modal-toggle="{{ $thing_id }}-modal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg> Details</a>
+
+                    <div id="{{ $thing_id }}-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+                        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow">
+                                <!-- Modal header -->
+                                <div class="flex justify-between items-start p-4 rounded-t border-b ">
+                                    <h3 class="text-xl font-semibold text-gray-900 ">
+                                        {{(count($game['name']) > 1) ? $game['name'][0]['@attributes']['value'] : $game['name']['@attributes']['value']}} - Details
+                                    </h3>
+                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="{{ $thing_id }}-modal">
+                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-6 space-y-6">
+                                    <p class="text-base leading-relaxed text-gray-500">
+                                        {!! $game['description'] !!}
+                                    </p>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
+                                    <a href="#" data-modal-toggle="{{ $thing_id }}-modal" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">Close</a>
+                                    <a href="https://boardgamegeek.com/boardgame/{{ $thing_id }}" target="_blank" class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">View More Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div id="popover-{{ $thing_id }}-details" role="tooltip" class="inline-block absolute invisible z-10 w-64 text-sm font-light text-gray-500 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transition-opacity duration-300 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
                         <div class="py-2 px-3 bg-gray-100 rounded-t-lg border-b border-gray-200 dark:border-gray-600 dark:bg-gray-700">
                             <h3 class="font-semibold text-gray-900 dark:text-white">Description</h3>
