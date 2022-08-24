@@ -82,7 +82,9 @@
                 </div>
                 <livewire:game-break-calendar
                     :day-click-enabled="false"
-                    :drag-and-drop-enabled="false" />
+                    :drag-and-drop-enabled="false"
+                    event-view="livewire/calendar/event"
+                />
             </div>
         </div>
     </div>
