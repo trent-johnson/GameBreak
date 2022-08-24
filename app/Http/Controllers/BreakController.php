@@ -20,9 +20,18 @@ class BreakController extends Controller
     }
     public function create() {
         return view('break.new', [
+            'break' => GameBreak::make(),
             'successes' => null
         ]);
     }
+
+    public function edit(Request $request, GameBreak $id) {
+        return view('break.new', [
+            'break' => $id,
+            'successes' => null
+        ]);
+    }
+
     public function save(Request $request) {
         $validated = $request->validate([
             'event_datetime' => 'required',

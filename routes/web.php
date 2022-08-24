@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function() {
     /// BREAK ROUTES ///
     Route::get('/breaks', [\App\Http\Controllers\BreakController::class,'index'])->name('breaks');
     Route::get('/break/new',[\App\Http\Controllers\BreakController::class,'create'])->name('newBreak');
+    Route::get('/break/edit/{id}',[\App\Http\Controllers\BreakController::class,'edit'])->name('editBreak');
     Route::post('/break',[\App\Http\Controllers\BreakController::class,'save'])->name('saveBreak');
     Route::delete('/break/{id}',[\App\Http\Controllers\BreakController::class,'delete'])->name('deleteBreak');
 
