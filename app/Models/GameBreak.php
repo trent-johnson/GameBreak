@@ -88,7 +88,7 @@ class GameBreak extends Model
                         str_replace(
                             'data:text/calendar;charset=utf8;base64,',
                             '',
-                            $event->ics()
+                            $event->ics(['UID' => md5($this->id . '_gamebreak_' . $this->user->name)])
                         )
                     )
                 )
