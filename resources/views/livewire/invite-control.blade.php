@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="p-4 text-right text-xs">
-                <a href="{{route('calendarInvite', ['id' => $break->id])}}" target="_blank" class="bg-indigo-500 rounded inline-block p-2 text-gray-100 ">Add to Calendar</a>
+                <a href="{{route('calendarInvite', ['id' => $break->id, 'invitee_id' => $invitee->id, 'secure' => $secure])}}" target="_blank" class="bg-indigo-500 rounded inline-block p-2 text-gray-100 ">Add to Calendar</a>
             </div>
 
         </div>

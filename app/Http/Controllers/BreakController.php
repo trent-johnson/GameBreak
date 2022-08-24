@@ -105,8 +105,13 @@ class BreakController extends Controller
         return redirect()->route('breaks');
     }
     public function downloadInvite(Request $request, $id) {
+
         $break = GameBreak::with('user')->findorfail($id);
-        return response($break->generateCalendar(), 200, [
+
+        $invitee_id = ($request->input('invitee_id')) ?: null;
+        $secure = ($request->input('secure')) ?: null;
+
+        return response($break->generateCalendar($invitee_id, $secure), 200, [
             'Content-Type' => 'text/calendar; charset=utf-8',
             'Content-Disposition' => 'attachment; filename="gamebreak.ics"',
         ]);

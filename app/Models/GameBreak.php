@@ -63,15 +63,37 @@ class GameBreak extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function generateCalendar() {
+    public function generateCalendar($invitee_id = null, $secure = null) {
+
+        $url = url('/') . '/break/' . $this->id;
+
+        if($invitee_id) {
+            $url .= '?invitee_id=' . $invitee_id . '&secure=' . $secure;
+        }
 
         $event = Link::create($this->user->name . "'s Game Break",
             new DateTime($this->event_datetime),
             new DateTime(date('Y-m-d H:i:s',strtotime($this->event_datetime . "+2hours"))))
-                ->description('Upcoming Game Break session. ' . $this->notes)
+                ->description('Upcoming Game Break session. ' . $this->notes . '<br /><br /><a href="' . $url . '">View Details</a>' )
                 ->address($this->location);
 
-        return base64_decode(str_replace('data:text/calendar;charset=utf8;base64,','',$event->ics()));
+        return str_replace(
+            ';TZID=America/New_York',
+            '',
+                   str_replace(
+                'X-ALT-DESC',
+                'DESCRIPTION',
+                    (
+                        base64_decode(
+                        str_replace(
+                            'data:text/calendar;charset=utf8;base64,',
+                            '',
+                            $event->ics()
+                        )
+                    )
+                )
+           )
+        );
 
     }
 }
