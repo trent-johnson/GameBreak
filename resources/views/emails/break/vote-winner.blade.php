@@ -9,6 +9,7 @@ If you're not familiar with {{ $email_games[0]['name'] }} or just want to brush 
 quick video:
 
 <center><a href="https://www.youtube.com/watch?v={{ $email_games[0]['yt_info']['id']['videoId'] }}"><img src="{{ $email_games[0]['yt_info']['snippet']['thumbnails']['default']['url'] . '#center' }}" width="{{ $email_games[0]['yt_info']['snippet']['thumbnails']['default']['width'] }}" height="{{ $email_games[0]['yt_info']['snippet']['thumbnails']['default']['height'] }}" /></a></center>
+<center>{{  $email_games[0]['yt_info']['snippet']['title'] }}</center>
 
 @else
 # Hold up - It's a tie!
@@ -23,7 +24,7 @@ If you're not familiar with {{ $game['name'] }} or just want to brush up with an
 quick video:
 
 <center><a href="https://www.youtube.com/watch?v={{ $game['yt_info']['id']['videoId'] }}"><img src="{{ $game['yt_info']['snippet']['thumbnails']['default']['url'] . '#center' }}" width="{{ $game[0]['yt_info']['snippet']['thumbnails']['default']['width'] }}" height="{{ $game['yt_info']['snippet']['thumbnails']['default']['height'] }}" /></a></center>
-
+<center>{{ $game['yt_info']['snippet']['title'] }}</center>
 @endforeach
 @endif
 

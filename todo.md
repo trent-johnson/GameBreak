@@ -15,7 +15,6 @@
 - Ability to edit game break details after creation.
 - Ability to edit RSVP status.
 - Based of the number of plays for a break, that should determine the number of votes for invitees
-- Custom video / helper video / link vs auto pull from YouTube
 - Option to not use votes; Instead, the game options selected are assumed to be the games played during the session
 
 ### Viewing Game Break

@@ -3,9 +3,9 @@
 
 Attached is your calendar invite for {{$break->user->name}}'s Game Break.
 
-### Location: {{$break->location}}
+Location: **{{$break->location}}**
 
-Date: _{{date('D M jS, g:i a',strtotime($break->event_datetime)) }}_
+Date: **{{date('D M jS, g:i a',strtotime($break->event_datetime)) }}**
 
 @component('mail::button', ['url' =>  url('/') . '/break/' . $break->id . '?invitee_id=' . $invitee->id . '&secure=' . $secure])
     View Game Break
