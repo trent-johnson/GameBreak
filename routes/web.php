@@ -35,6 +35,10 @@ Route::middleware(['auth'])->group(function() {
     /// USER ROUTES ///
     Route::get('/user/{user}', [\App\Http\Controllers\UserController::class,'show'])->name('profile');
     Route::post('/user/{user}', [\App\Http\Controllers\UserController::class,'update'])->name('updateProfile');
+
+    ////////////////////
+    /// GROUP ROUTES ///
+    Route::post('/group',[\App\Http\Controllers\GameGroupController::class,'save'])->name('saveGroup');
 });
 
 Route::get('/break/{id}',[\App\Http\Controllers\BreakController::class,'show'])->name('showBreak');
